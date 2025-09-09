@@ -1,4 +1,4 @@
-use csv::{Reader, Writer};
+use csv::{ReaderBuilder, Writer};
 use pdf_extract::extract_text;
 use regex::Regex;
 use std::error::Error;
@@ -82,7 +82,10 @@ fn process_payments() -> Result<(), Box<dyn Error>> {
         if path.extension().and_then(|s| s.to_str()) == Some("txt") {
             println!("Processing payment file: {}", path.display());
             
-            let mut reader = Reader::from_reader(fs::File::open(&path)?);
+            let mut reader = ReaderBuilder::new()
+                .flexible(true)
+                .delimiter(b'\t')
+                .from_reader(fs::File::open(&path)?);
             reader.headers()?; // Force reading headers
             
             if !headers_written {
@@ -124,7 +127,10 @@ fn process_sales() -> Result<(), Box<dyn Error>> {
         if path.extension().and_then(|s| s.to_str()) == Some("txt") {
             println!("Processing sales file: {}", path.display());
             
-            let mut reader = Reader::from_reader(fs::File::open(&path)?);
+            let mut reader = ReaderBuilder::new()
+                .flexible(true)
+                .delimiter(b'\t')
+                .from_reader(fs::File::open(&path)?);
             reader.headers()?; // Force reading headers
             
             if !headers_written {

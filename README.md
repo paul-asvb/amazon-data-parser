@@ -3,7 +3,7 @@
 A Rust tool for parsing and consolidating Amazon business data from PDF invoices and CSV files.
 
 ```bash
-cp -r  /home/letis/syncthing/projects/geld/steuern/2021/amazon ./target
+cp -r  ~/syncthing/projects/geld/steuern/2021/amazon ./data
 cargo run
 ```
 
